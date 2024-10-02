@@ -1,6 +1,8 @@
 import React from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth }   from '../../services/firbease';
+import { Form,Button,Input, notification } from "antd"
+import './index.css'
 
 class Register extends React.Component{
     constructor(){
@@ -32,7 +34,7 @@ class Register extends React.Component{
            await createUserWithEmailAndPassword(auth,email,password)
         }
         catch{
-            console.log("error;");  
+        
         }
         finally{
             this.setState({
@@ -43,30 +45,23 @@ class Register extends React.Component{
     render(){
         const { loading } = this.state
         return(
-          <div>
-                <fieldset>
-                    <legend>Register</legend>
-                    <form onSubmit={this.handleRegister}>   
-                        <label htmlFor = "">
-                            <p>First Name</p>
-                            <input name="firstName"  type="text" placeholder="First Name" onChange={this.handleChangeInput}/>
-                        </label>
-                        <label htmlFor = "">
-                            <p>Last Name</p>
-                            <input name="lastName" type="text" placeholder="Last Name"  onChange={this.handleChangeInput}/>
-                        </label>
-                        <label htmlFor = "">
-                            <p>Email</p>
-                            <input  name="email" type="email" placeholder="Email"  onChange={this.handleChangeInput}/>
-                        </label>
-                        <label htmlFor = "">
-                            <p>Password</p>
-                            <input name="password" type="password" placeholder="Password" onChange={this.handleChangeInput}/>
-                        </label>
+          <div className="auth_container">
+                    <Form layout="vertical" >   
+                        <Form.Item label = "First Name">
+                            <Input name="firstName"  type="text" placeholder="First Name" onChange={this.handleChangeInput}/>
+                        </Form.Item>
+                        <Form.Item label = "Last Name">
+                            <Input name="lastName" type="text" placeholder="Last Name"  onChange={this.handleChangeInput}/>
+                        </Form.Item>
+                        <Form.Item label = "Email">
+                            <Input  name="email" type="email" placeholder="Email"  onChange={this.handleChangeInput}/>
+                        </Form.Item>
+                        <Form.Item label = "Password">
+                            <Input.Password name="password" type="password" placeholder="Password" onChange={this.handleChangeInput}/>
+                        </Form.Item>
                         <hr/>
-                        <button>{ loading ? "Loading..." : "Register"} </button>
-                    </form>
-                </fieldset>
+                        <Button onClick={this.handleRegister} type="primary" loading={loading}> Register </Button>
+                    </Form>
             </div>
         )
     }
