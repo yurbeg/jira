@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button,Flex } from "antd";
+import { Form, Input, Button,Flex,notification } from "antd";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../services/firbase";
 import { Link } from "react-router-dom";
@@ -7,17 +7,22 @@ import { ROUTE_CONSTANTS } from "../../../core/constants/constants";
 import AuthWrapper from "../../../components/shared/AuthWrapper";
 import loginBanner from "../../../core/images/login-auth.jpg"
 
-const Login = () => {
+const Login = ({ setIsAuth }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
   const handleLogin = async (values) => {
     setLoading(true);
     try {
       const { email, password } = values;
       await signInWithEmailAndPassword(auth, email, password);
       form.resetFields();
+      setIsAuth(true)
     } catch (error) {
-      console.log(error);
+      notification.error({
+        message:"Invalid Login Credentials",
+        // descriptions
+      });
     } finally {
       setLoading(false);
     }

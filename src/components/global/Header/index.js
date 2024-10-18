@@ -1,8 +1,8 @@
 import { Flex, Button } from "antd";
-import "./index.css";
+import AuthProfileDropDown from '../../shared/AuthProfileDropdown'
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../../core/constants/constants";
-
+import "./index.css";
 const Header = () => {
   return (
     <div className="main_header">
@@ -10,9 +10,10 @@ const Header = () => {
         <p>Logo</p>
 
         <div>
-          <Link to={ROUTE_CONSTANTS.LOGIN}>
+          <AuthProfileDropDown />
+          {/* <Link to={ROUTE_CONSTANTS.LOGIN}>
           <Button>Sign in</Button>
-          </Link>
+          </Link> */}
         </div>
       </Flex>
     </div>
