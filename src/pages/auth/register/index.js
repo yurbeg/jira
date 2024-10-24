@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form, Button, Input, Flex } from "antd";
-import { auth } from "../../../services/firbase";
-import { passWalidation } from "../../../core/constants/constants";
+import { auth,db } from "../../../services/firbase";
 import { Link, useNavigate } from "react-router-dom";
-import { ROUTE_CONSTANTS } from "../../../core/constants/constants";
+import { setDoc,doc } from "firebase/firestore"
+import { passWalidation,ROUTE_CONSTANTS,FIRSTORE_PATH_NAMES } from "../../../core/constants/constants";
 import AuthWrapper from "../../../components/shared/AuthWrapper";
 import registerBanner from "../../../core/images/register-auth.jpg";
 
@@ -15,10 +15,19 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = async (values) => {
+    console.log(values);
+    
     setLoading(true);
-    const { email, password } = values;
+    const { firstName,lastName,email, password } = values;
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const  response = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      
+      const { uid } = response.user
+      const createdDoc = doc(db,FIRSTORE_PATH_NAMES.REGISTERED_USERS,uid)
+      await setDoc(createdDoc, {
+        uid,firstName,lastName,email
+      })
       navigate(ROUTE_CONSTANTS.LOGIN);
     } catch (e) {
       console.log(e);
@@ -32,7 +41,7 @@ const Register = () => {
       <Form layout="vertical" form={form} onFinish={handleRegister}>
         <Form.Item
           label="First Name"
-          name="name"
+          name="firstName"
           rules={[
             {
               required: true,
@@ -45,7 +54,7 @@ const Register = () => {
 
         <Form.Item
           label="Last Name"
-          name="lastname"
+          name="lastName"
           rules={[
             {
               required: true,
@@ -117,7 +126,7 @@ const Register = () => {
             Register
           </Button>
 
-          <Link to={ROUTE_CONSTANTS.LOGIN}>
+          <Link to={ROUTE_CONSTANTS.LOGIN}> 
             <Button type="Link">Log In</Button>
           </Link>
         </Flex>

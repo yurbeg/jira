@@ -17,21 +17,25 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAStpy5lPXkAj8AdTq95XBumRZOFEG4L0o",
-  authDomain: "jira-c10d1.firebaseapp.com",
-  projectId: "jira-c10d1",
-  storageBucket: "jira-c10d1.appspot.com",
-  messagingSenderId: "871275944964",
-  appId: "1:871275944964:web:c4271e64aeb48c701e2951",
-  measurementId: "G-YS5P2MPLTK"
+  apiKey: "AIzaSyASrAS1Q7OVnciBtPUcFYznG2XapJme9lY",
+  authDomain: "jira-3e41b.firebaseapp.com",
+  databaseURL: "https://jira-3e41b-default-rtdb.firebaseio.com",
+  projectId: "jira-3e41b",
+  storageBucket: "jira-3e41b.appspot.com",
+  messagingSenderId: "761522765865",
+  appId: "1:761522765865:web:0f8da5183fcd29f429dc38",
+  measurementId: "G-5B4VBPSW83"
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db =  getFirestore(app)
 
 export {
+  db,
   auth
 }
 

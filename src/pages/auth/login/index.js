@@ -21,7 +21,6 @@ const Login = ({ setIsAuth }) => {
     } catch (error) {
       notification.error({
         message:"Invalid Login Credentials",
-        // descriptions
       });
     } finally {
       setLoading(false);
@@ -68,7 +67,7 @@ const Login = ({ setIsAuth }) => {
           </Button>
           <Link to={ROUTE_CONSTANTS.REGISTER}>
             <Button  type="Link">
-              Create Acount
+              Create Account
             </Button>
           </Link>
        </Flex>
