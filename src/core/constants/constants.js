@@ -6,7 +6,7 @@ export const ROUTE_CONSTANTS = {
     LOGIN: "/login",
     REGISTER: "/register",
     CABINET: "/cabinet",
-    PROFILE: "/profile"
+    PROFILE: "/cabinet/profile"
 }
 
 export const FIRSTORE_PATH_NAMES ={

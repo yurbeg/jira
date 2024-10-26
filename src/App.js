@@ -1,6 +1,6 @@
 import { Login,Register } from "./pages/auth" 
 import MainLayout from "./components/Layout/Main";
-import Cabinet from "./pages/cabinet";
+import CabinetLayout from "./components/Layout/Cabinet";
 import { ROUTE_CONSTANTS } from "./core/constants/constants";
 import {
   RouterProvider,
@@ -47,8 +47,14 @@ const App = () => {
           <Route path="" element={<MainLayout />}>
             <Route path={ROUTE_CONSTANTS.LOGIN} element={isAuth?<Navigate to={ROUTE_CONSTANTS.CABINET} />:<Login setIsAuth={setIsAuth}/>} />
             <Route path={ROUTE_CONSTANTS.REGISTER} element={<Register />} />
-            <Route path={ROUTE_CONSTANTS.CABINET} element={isAuth ? <Cabinet />:<Navigate to={ROUTE_CONSTANTS.LOGIN}/> } />
-            <Route path={ROUTE_CONSTANTS.PROFILE} element={isAuth ? <Profile />:<Navigate to={ROUTE_CONSTANTS.LOGIN}/> } />
+            {/* Cabinet layout  Route */}
+            <Route
+             path={ROUTE_CONSTANTS.CABINET } 
+             element={ isAuth ? <CabinetLayout /> : <Navigate to={ROUTE_CONSTANTS.LOGIN}/> }>
+              <Route 
+              path={ROUTE_CONSTANTS.PROFILE}
+               element={ <Profile />} />
+            </Route>
           </Route>
         )
       )}
