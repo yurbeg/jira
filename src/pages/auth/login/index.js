@@ -1,26 +1,30 @@
-import React, { useState } from "react";
-import { Form, Input, Button,Flex,notification } from "antd";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../services/firbase";
-import { Link } from "react-router-dom";
-import { ROUTE_CONSTANTS } from "../../../core/constants/constants";
-import AuthWrapper from "../../../components/shared/AuthWrapper";
-import loginBanner from "../../../core/images/login-auth.jpg"
+import {  useState } from 'react';
+import { Form, Input, Button, notification } from 'antd';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../services/firbase';
+import { ROUTE_CONSTANTS } from '../../../core/utils/constants';
+import AuthWrapper from '../../../components/sheard/AuthWrapper';
+import loginBanner from '../../../core/images/auth-login.jpg';
+import { useDispatch } from 'react-redux';
+import { fetchUserProfileInfo } from '../../../state-managment/slices/userProfile';
+import { Link } from 'react-router-dom';
 
-const Login = ({ setIsAuth }) => {
-  const [form] = Form.useForm();
+const Login = () => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleLogin = async (values) => {
+  const [ form] = Form.useForm();
+
+  const handleLogin = async values => {
     setLoading(true);
     try {
       const { email, password } = values;
       await signInWithEmailAndPassword(auth, email, password);
       form.resetFields();
-      setIsAuth(true)
-    } catch (error) {
+      dispatch(fetchUserProfileInfo()); //okay
+    }catch (error) {
       notification.error({
-        message:"Invalid Login Credentials",
+        message: 'Invalid Login Credentials',
       });
     } finally {
       setLoading(false);
@@ -28,20 +32,19 @@ const Login = ({ setIsAuth }) => {
   };
 
   return (
-    <AuthWrapper title="Sign in" banner = {loginBanner}>
+    <AuthWrapper title="Sign in" banner={loginBanner}>
       <Form layout="vertical" form={form} onFinish={handleLogin}>
         <Form.Item
           label="Email"
           name="email"
-          tooltip="This field is for your Email"
           rules={[
             {
               required: true,
-              message: "Pls enter your Eamil",
-            },
+              message: 'Please input your email!'
+            }
           ]}
         >
-          <Input type="email" placeholder="email" />
+          <Input type="email" placeholder="Email"/>
         </Form.Item>
 
         <Form.Item
@@ -50,31 +53,22 @@ const Login = ({ setIsAuth }) => {
           rules={[
             {
               required: true,
-              message: "Pls enter your Password",
-            },
+              message: 'Please input your password!'
+            }
           ]}
         >
-          <Input.Password placeholder="Password" />
+          <Input.Password placeholder="Password"/>
         </Form.Item>
 
-       <Flex align="flex-end" gap="10px" justify="flex-end">  
-        <Button
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-          >
-            Login
-          </Button>
-          <Link to={ROUTE_CONSTANTS.REGISTER}>
-            <Button  type="Link">
-              Create Account
-            </Button>
-          </Link>
-       </Flex>
-      </Form>
+        <Button type="primary" htmlType="submit" loading={loading}>
+          Sign in
+        </Button>
 
+        <Link to={ROUTE_CONSTANTS.REGISTER}>Create account</Link>
+      </Form>
     </AuthWrapper>
-  );
-};
+  )
+}
+
 
 export default Login;
