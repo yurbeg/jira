@@ -16,7 +16,7 @@ const App = () => {
   const { loading, authUserInfo: { isAuth } } = useSelector(store => store.userProfile);
 
   useEffect(() => {
-    dispatch(fetchUserProfileInfo());
+    dispatch(fetchUserProfileInfo()); 
   }, []);
 
   return (
