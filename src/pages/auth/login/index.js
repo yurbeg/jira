@@ -12,16 +12,14 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
   const [ form] = Form.useForm();
-
   const handleLogin = async values => {
     setLoading(true);
     try {
       const { email, password } = values;
       await signInWithEmailAndPassword(auth, email, password);
       form.resetFields();
-      dispatch(fetchUserProfileInfo()); //okay
+      dispatch(fetchUserProfileInfo()); 
     }catch (error) {
       notification.error({
         message: 'Invalid Login Credentials',
