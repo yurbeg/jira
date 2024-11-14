@@ -60,6 +60,7 @@ const CabinetLayout = () => {
 
     </div>
   );
+  
 };
 
 export default CabinetLayout;
