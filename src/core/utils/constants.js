@@ -9,6 +9,8 @@ export const ROUTE_CONSTANTS = {
 
 export const FIRESTORE_PATH_NAMES = {
   REGISTERED_USERS: 'registered_users',
+  ISSUES:"issues"
+
 }
 
 export const STORAGE_PATH_NAMES = {

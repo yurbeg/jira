@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [ form] = Form.useForm();
+  const[form] = Form.useForm();
   const handleLogin = async values => {
     setLoading(true);
     try {
