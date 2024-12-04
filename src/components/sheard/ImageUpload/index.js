@@ -33,7 +33,7 @@ const ImageUpload = ({ progress, uploading, handleUpload }) => {
           {uploadButton}  
         </Upload>
     </div>
-  );
+  ); 
 };
 ImageUpload.propTypes = {
   progress: PropTypes.number.isRequired,

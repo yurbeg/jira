@@ -2,8 +2,8 @@ import { Editor as EditorTinymce } from "@tinymce/tinymce-react";
 const Editor = ({ value, onChange }) => {
   return (
     <EditorTinymce
-      apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
-      onEditorChange={onChange}
+    onEditorChange={onChange}
+    apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
       init={{
         height: 300,
         menubar: false,

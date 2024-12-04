@@ -5,10 +5,14 @@ import { db } from "../../../../services/firbase";
 import { doc,setDoc } from "firebase/firestore";
  import { FIRESTORE_PATH_NAMES } from "../../../../core/utils/constants";
 import { generateUid } from "../../../../core/helpers/generateUid";
+import { useSelector,useDispatch } from "react-redux";
+import { fetchIssueData } from "../../../../state-managment/slices/issues";
 
 const AddIssueModal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch()
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+
   const handleCreateIssue = async (value) => {
     setIsLoading(true)
     const taskId = generateUid()
@@ -26,6 +30,7 @@ const AddIssueModal = ({ isOpen, onClose }) => {
       notification.success({
         message:"Your task me been created"
       })
+      dispatch(fetchIssueData())
     }
     catch{
       notification.error({
